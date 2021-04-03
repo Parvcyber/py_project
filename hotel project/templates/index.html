@@ -1,0 +1,279 @@
+{% extends 'basic.html' %} {% block title %}BookMYroooms {% endblock title %}
+{%block body %}
+<!--Booking Section starts here-->
+{% load static %}
+
+<div
+  class="container-fluid d-flex justify-content-center"
+  style="
+    position: absolute;
+    top: 58%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  "
+>
+  <h1 style="color: white; font-size: 500%">BookMYRooms</h1>
+</div>
+<div
+  class="container-fluid d-flex justify-content-center"
+  style="
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  "
+>
+  <h4 style="color: white">
+    Where you can book your place in easy,fast and convenient way
+  </h4>
+</div>
+<section
+  class="container-fluid d-flex justify-content-center"
+  style="
+    position: absolute;
+    left: 15%;
+    bottom: 10%;
+    width: 1200px;
+    align-self: center;
+    z-index: 10;
+  "
+>
+  <div class="container-fluid">
+    <form action="{%url 'resultpage' %}" method="POST" class="container-fluid">
+      {% csrf_token %}
+      <div class="row justify-content-center py-5 bg-dark" style="opacity: 0.8">
+        <div class="col-lg-4">
+          <label for=""><h5 style="color: white">Location</h5></label>
+          <select class="form-control" name="search_location" id="roomstatus">
+            <!--Hotel id and location-->
+            <option>Location</option>
+            {% for each_location,each_hotel_id in all_location %}
+
+            <option value="{{each_hotel_id}}">{{each_location}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        {%load app_tags%}
+        <div class="col-lg-2">
+          <label for=""><h5 style="color: white">Check in</h5></label>
+          <input
+            class="form-control mr-sm-2"
+            type="date"
+            placeholder="Check in"
+            name="cin"
+            min="{%todays_date%}"
+            max="{%"
+            max_date
+            %}
+            aria-label="Search"
+            required="True"
+          />
+        </div>
+        <div class="col-lg-2">
+          <label for=""><h5 style="color: white">Check out</h5></label>
+          <input
+            class="form-control mr-sm-2"
+            type="date"
+            placeholder="Check out"
+            name="cout"
+            min="{%tommorow%}"
+            max="{%"
+            max_date%}
+            aria-label="Search"
+            required="True"
+          />
+        </div>
+        <div class="col-lg-2">
+          <label for=""><h5 style="color: white">Person</h5></label>
+          <input
+            class="form-control mr-sm-2"
+            type="number"
+            placeholder="Person"
+            name="capacity"
+            aria-label="Search"
+            required="True"
+          />
+        </div>
+        <div class="col-lg-2">
+          <input
+            type="submit"
+            value="BookMYrooms"
+            class="form-control mr-sm-2 btn btn-primary my-4"
+            style="position: relative; top: 15px"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<img
+  src="{% static './hotel9.jpg' %}"
+  class="d-flex container-fluid"
+  alt="..."
+  style="padding: 0px"
+  width="2000"
+  height="700"
+/>
+<!--Booking Section ends here-->
+
+<h1
+  class="container my-5 d-flex justify-content-row justify-content-between"
+  style="font-size: 400%; top: 400"
+>
+  Blogs
+</h1>
+
+<!--blogs-->
+
+<div class="container">
+  <div class="row mb-2 my-5">
+    <div class="col-md-6">
+      <div
+        class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
+      >
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary">Travel</strong>
+          <h3 class="mb-0">World of Hotels</h3>
+          <div class="mb-1 text-muted">Nov 12</div>
+          <p class="card-text mb-auto">
+            travel beautiful places in the world with affordable prices.
+          </p>
+          <a href="#" class="stretched-link">Continue reading</a>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <img
+            class="bd-placeholder-img"
+            width="200"
+            height="250"
+            role="img"
+            src="https://unsplash.it/300/200?image=1074"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div
+        class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
+      >
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-success">Travel</strong>
+          <h3 class="mb-0">caught sight</h3>
+          <div class="mb-1 text-muted">Nov 11</div>
+          <p class="mb-auto">
+            This is a wider content with supporting places below as a natural
+            good to see here.
+          </p>
+          <a href="#" class="stretched-link">Continue reading</a>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <img
+            class="bd-placeholder-img"
+            width="200"
+            height="250"
+            role="img"
+            src="https://unsplash.it/400/300"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h1
+  class="container my-5 d-flex justify-content-row justify-content-between"
+  style="font-size: 400%"
+>
+  News
+</h1>
+
+<div class="conatiner">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+      <div class="card h-100">
+        <img
+          src="https://source.unsplash.com/user/erondu/900x400"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">
+            This is a wider card with supporting text below as a natural lead-in
+            to additional content. This content is a little bit longer.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card h-100">
+        <img
+          src="https://source.unsplash.com/1600x900/?nature,water"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">
+            This card has supporting text below as a natural lead-in to
+            additional content.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card h-100">
+        <img
+          src="https://source.unsplash.com/WLUHO9A_xik/1600x900"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">
+            This is a wider card with supporting text below as a natural lead-in
+            to additional content. This card has even longer content than the
+            first to show that equal height action.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Fetched reults appear here-->
+<div class="container-fluid px-0 mx-aut">
+  {% if rooms %}
+  <table class="table">
+    <thead class="o">
+      <th>Type</th>
+      <th>Location</th>
+      <th>Person</th>
+      <th>price</th>
+      <th>Action</th>
+    </thead>
+    {% for r in rooms %}
+    <tr class="">
+      <td>{{ r.get_room_type_display }}</td>
+      <td>{{ r.hotel.location }}</td>
+      <td>{{ r.capacity }}</td>
+      <td>{{ r.price }}</td>
+
+      <td>
+        <a href="/user/book-room?roomid={{r.id}}"
+          ><button class="btn btn-warning">Book Now</button></a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+</div>
+<!--Fetched results ends here-->
+
+{% endblock body %}

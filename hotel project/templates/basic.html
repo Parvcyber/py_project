@@ -1,0 +1,248 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} {% endblock title %}</title>
+
+    <!--Cdn links for bootstrap-->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+      integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'bootstrap\bootstrap.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+function contact() {
+  alert("Your message has been send successfully!!");
+}
+
+
+  function logout() {
+  if (window.confirm("Do you really want to leave?")) {
+  window.open("home", "Thanks for Visiting!");
+}
+else{
+  windows.open("contact");
+
+}
+}
+</script>
+
+    {% block css %} {% endblock css %}
+    <style>
+      a {
+        text-decoration: none;
+      }
+
+
+.dropbtn {
+  background-color: black;
+  color: white;
+  padding: 8px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+    </style>
+  </head>
+
+  <body>
+    <!--Header Section starts here-->
+    <div class="container-fluid px-0">
+      <nav
+        class="navbar navbar-expand-lg navbar-dark bg-dark font-weight-bold"
+      >
+        <a class="navbar-brand text-bold bg-black" href="/"
+          ><i class="fas fa-umbrella-beach	text-warning">  </i>     <b>BookMYRooms</b></a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a href="/home">
+                <button type="button" class="btn btn-outline-light">Home</button>
+              </a>
+            </li>
+            {% if user.is_staff %}
+            <li class="nav-item active">
+              <a href="/staff/panel">
+                <button type="button" class="btn btn-outline-light mx-4">
+                  Dashboard
+                </button>
+              </a>
+            </li>
+            {% elif user.is_staff == False and user.is_authenticated %}
+            
+            
+             <li class="nav-item active mx-3">
+              <a href="/roomdetails/">
+                <button type="button" class="btn btn-outline-light">Room Details</button>
+              </a>
+            </li>
+
+            {% endif %} 
+            {% if user.is_authenticated %}
+            <b style="color:#FFD700; font-size:25px; position:absolute; left:83%;">Hello, </b>
+            
+            
+
+            
+            
+            <div class="dropdown" style="position:absolute; left:88%; top:2%;">
+                {% comment %} <button class="dropbtn bg-warning"><b style="color:black;">Dropdown</b></button> {% endcomment %}
+                 <button class="dropbtn bg-dark dropdown-toggle "><b style="color:#FFD700;font-size:25px;">{{request.user}}</b></button>
+               <div class="dropdown-content">
+                   <a href="/profile/">Profile</a>
+                   <a href="/logout" onclick="logout()">Logout</a>
+                 </div>
+            </div>
+            {%endif%}
+            {% if user.is_staff %}
+            <li class="nav-item active">
+              <a href="/staff/allbookings">
+                <button type="button" class="btn btn-outline-light">
+                  All Bookings
+                </button>
+              </a>
+            </li>
+            {% endif %}
+
+            <li class="nav-item active">
+              <a href="/contact">
+                <button type="button" class="btn btn-outline-light mx-2">
+                  Contact
+                </button>
+              </a>
+            </li>
+          </ul>
+       
+       
+       
+           {% if user.is_authenticated %}
+          <button
+            class="btn btn-group bg-dark"
+            data-toggle="modal"
+            data-target="#forlogin" >
+          </button>
+        
+
+           {% else %} 
+
+          <a href="/user" class="nav-link">
+            <button
+              class="btn btn-group bg-warning font-weight-bold"
+              data-toggle="modal"
+              data-target="#forlogin"
+            >
+              User Login
+            </button></a
+          >
+          <a href="/staff" class="nav-link">
+            <button class="btn btn-group bg-warning font-weight-bold">
+              Staff Login
+            </button></a
+          > 
+            {% endif %} 
+        </div>
+      </nav>
+    </div>
+    <!--Header Section Ends here-->
+  
+    {% for message in messages %}
+    <div
+      class="alert alert-{{message.tags}} alert-dismissible fade show"
+      role="alert"
+    >
+      {{message}}
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %} {% block body %} {% endblock body %}
+  </body>
+  {% block js %} {% endblock js %}
+     <pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     </pre>
+
+  <div class="card-body container-fluid d-flex bg-dark" style="top: 95px; left: 50px;">
+   <pre style="color:white;"> <h6>
+    BookMYRooms, the world's largest travel guidance platform*, helps hundreds of millions of people each month** become better travelers, from planning to
+    booking to taking a trip. Travelers across the globe use the BookMYRooms site and app to discover where to stay, what to do and where to eat based on
+    guidance from those who have been there before. No matter who you are, or where you are going, our travel brands help every type of traveler not only 
+    find the trip that’s right for them, but get the best value every time, BookMYRooms makes planning easy no matter the trip type</h6>
+</pre>
+  
+  </div>
+</div>
+
+</html>
